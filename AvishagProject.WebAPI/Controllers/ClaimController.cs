@@ -42,5 +42,6 @@ namespace AvishagProject.WebAPI.Controllers
         {
             _claimRepository.Delete(Id);
         }
+        // chek
     }
 }

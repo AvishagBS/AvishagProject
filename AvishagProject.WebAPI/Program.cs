@@ -1,4 +1,5 @@
 using AvishagProject.Mock;
+using AvishagProject.Repositories;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Repositories.Repositories;
 
@@ -10,11 +11,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-builder.Services.AddScoped<IClaimRepository, ClaimRepository>();
-builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
-builder.Services.AddSingleton<IContext, MockContext>();
 
+builder.Services.AddSingleton<IContext, MockContext>();
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 

@@ -23,24 +23,27 @@ namespace AvishagProject.Repositories.Repositories
         {
             return _context.Permissions.First(x => x.Id == id);
         }
-        public Permission Add(int id, string name, string description)
+        public async Task< Permission> AddAsync(int id, string name, string description)
         {
             Permission p = new Permission { Id = id, Name = name, Description = description };
             _context.Permissions.Add(p);
+            await _context.SaveChangesAsync();
             return p;
 
         }
-        public Permission Update(Permission permission)
+        public async Task< Permission> UpdateAsync(Permission permission)
         {
             var p = GetById(permission.Id);
             permission.Name = p.Name;
             permission.Description = p.Description;
+            await _context.SaveChangesAsync();
             return permission;
         }
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var p = _context.Permissions.First(x => x.Id == id);
             _context.Permissions.Remove(p);
+            await _context.SaveChangesAsync();
         }
 
     }

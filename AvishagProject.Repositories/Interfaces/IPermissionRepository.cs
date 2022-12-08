@@ -11,8 +11,8 @@ namespace AvishagProject.Repositories.Interfaces
     {
         List<Permission> GetAll();
         Permission GetById(int id);
-        Permission Add(int id, string name, string description);
-        Permission Update(Permission permission);
-        void Delete(int id);
+        Task<Permission> AddAsync(int id, string name, string description);
+        Task<Permission> UpdateAsync(Permission permission);
+        Task DeleteAsync(int id);
     }
 }

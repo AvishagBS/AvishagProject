@@ -12,5 +12,6 @@ namespace AvishagProject.Repositories.Interfaces
         public List<Claim> Claims { get; set; }
         public List<Role> Roles { get; set;}
         public List<Permission> Permissions { get; set; }
+        Task<int> SaveChangesAsync();
     }
 }

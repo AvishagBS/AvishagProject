@@ -4,6 +4,8 @@ using AvishagProject.Mock;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Repositories.Repositories;
 using AvishagProject.Repositories.Entities;
+using AvishagProject.common.DTOs;
+using AvishagProject.Services.Interfaces;
 
 namespace AvishagProject.WebAPI.Controllers
 {
@@ -12,35 +14,35 @@ namespace AvishagProject.WebAPI.Controllers
     public class RoleController : ControllerBase
     {
 
-        private readonly IRoleRepository _roleRepository;
-        public RoleController(IRoleRepository _IroleRepository)
+        private readonly IRoleService _roleService;
+        public RoleController(IRoleService roleService)
         {
-            _roleRepository = _IroleRepository;
+            _roleService = roleService;
         }
         [HttpGet]
-        public List<Role> Get()
+        public List<RoleDTO> Get()
         {
-            return _roleRepository.GetAll();
+            return _roleService.GetAll();
         }
         [HttpGet("{id}")]
-        public Role GetById(int Id)
+        public RoleDTO GetById(int id)
         {
-            return _roleRepository.GetById(Id);
+            return _roleService.GetById(id);
         }
         [HttpPost]
-        public void insert(int Id, string Name, string Description)
+        public async Task InsertAsync(int id, string name, string description)
         {
-            _roleRepository.Add(Id, Name, Description);
+            await _roleService.AddAsync(id, name, description);
         }
         [HttpPost]
-        public void Update(Role Role)
+        public async Task UpdateAsync(RoleDTO role)
         {
-            _roleRepository.Update(Role);
+            await _roleService.UpdateAsync(role);
         }
         [HttpDelete]
-        public void delete(int Id)
+        public async Task DeleteAsync(int id)
         {
-            _roleRepository.Delete(Id);
+            await _roleService.DeleteAsync(id);
         }
     }
 }

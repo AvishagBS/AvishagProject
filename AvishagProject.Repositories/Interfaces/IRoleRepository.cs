@@ -11,8 +11,8 @@ namespace AvishagProject.Repositories.Interfaces
     {
         List<Role> GetAll();
         Role GetById(int id);
-        Role Add(int id, string name, string description);
-        Role Update(Role role);
-        void Delete(int id);
+        Task<Role> AddAsync(int id, string name, string description);
+        Task<Role> UpdateAsync(Role role);
+        Task DeleteAsync(int id);
     }
 }

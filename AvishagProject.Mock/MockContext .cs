@@ -13,9 +13,22 @@ namespace AvishagProject.Mock
         public List<Claim> Claims { get; set; }
         public List<Role> Roles { get; set; }
         public List<Permission> Permissions { get; set; }
+        private int saveIndex;
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await Task.Run(() => GetSaveIndex());
+        }
+
+        private int GetSaveIndex()
+        {
+            return saveIndex++;
+        }
+
 
         public MockContext()
         {
+            saveIndex = 0;
             Claims = new List<Claim>();
             Roles = new List<Role>();
             Permissions = new List<Permission>();

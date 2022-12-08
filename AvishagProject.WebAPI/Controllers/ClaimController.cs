@@ -4,6 +4,8 @@ using AvishagProject.Repositories.Repositories;
 using AvishagProject.Repositories.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AvishagProject.common.DTOs;
+using AvishagProject.Services.Interfaces;
 
 namespace AvishagProject.WebAPI.Controllers
 {
@@ -12,36 +14,37 @@ namespace AvishagProject.WebAPI.Controllers
     public class ClaimController : ControllerBase
     {
 
-        private readonly IClaimRepository _claimRepository;
-        public ClaimController(IClaimRepository _IclaimRepository)
+        private readonly IClaimService _claimService;
+        public ClaimController(IClaimService claimService)
         {
-            _claimRepository = _IclaimRepository;
+            _claimService = claimService;
         }
         [HttpGet]
-        public List<Claim> Get()
+        public List<ClaimDTO> Get()
         {
-            return _claimRepository.GetAll();
+            return _claimService.GetAll();
         }
         [HttpGet("{id}")]
-        public Claim GetById(int Id)
+        public ClaimDTO GetById(int id)
         {
-            return _claimRepository.GetById(Id);
+            return _claimService.GetById(id);
         }
         [HttpPost]
-        public void insert(int Id, int RoleId, int PermissionId, EPolicy Policy)
+        public async Task InsertAsync(int id, int roleId, int permissionId, EPolicy policy)
         {
-            _claimRepository.Add(Id, RoleId, PermissionId, Policy);
+            await _claimService.AddAsync( id,  roleId,  permissionId,  policy);
         }
+
         [HttpPost]
-        public void Update(Claim Claim)
+        public async Task UpdateAsync(ClaimDTO claim)
         {
-            _claimRepository.Update(Claim);
+            await _claimService.UpdateAsync(claim);
         }
+
         [HttpDelete]
-        public void delete(int Id)
+        public async  Task DeleteAsync(int id)
         {
-            _claimRepository.Delete(Id);
+            await _claimService.DeleteAsync(id);
         }
-        // chek
     }
 }

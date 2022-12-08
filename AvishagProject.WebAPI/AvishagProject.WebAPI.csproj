@@ -11,8 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AvishagProject.common\AvishagProject.common.csproj" />
     <ProjectReference Include="..\AvishagProject.Mock\AvishagProject.Mock.csproj" />
     <ProjectReference Include="..\AvishagProject.Repositories\AvishagProject.Repositories.csproj" />
+    <ProjectReference Include="..\AvishagProject.Services\AvishagProject.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@ namespace AvishagProject.Repositories.Repositories
         {
             _context = _context;
         }
-        public List<Claim> GetAll()
+        public  List<Claim> GetAll()
         {
             return _context.Claims;
         }
@@ -24,24 +24,27 @@ namespace AvishagProject.Repositories.Repositories
         {
             return _context.Claims.First(x => x.Id == id);
         }
-        public Claim Add(int id, int roleId, int permissionId, EPolicy policy)
+        public async Task< Claim> AddAsync(int id, int roleId, int permissionId, EPolicy policy)
         {
             Claim c = new Claim { Id = id, RoleId = roleId, PermissionId = permissionId, Policy = policy };
             _context.Claims.Add(c);
+            await _context.SaveChangesAsync();
             return c;
 
         }
-        public Claim Update(Claim claim)
+        public async Task<Claim> UpdateAsync(Claim claim)
         {
             var c = GetById(claim.Id);
             claim.RoleId = c.RoleId;
             claim.PermissionId = c.PermissionId;
+            await _context.SaveChangesAsync();
             return claim;
         }
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var c = _context.Claims.First(x => x.Id == id);
             _context.Claims.Remove(c);
+            await _context.SaveChangesAsync();
         }
 
 

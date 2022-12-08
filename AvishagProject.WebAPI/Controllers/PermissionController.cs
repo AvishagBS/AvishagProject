@@ -4,6 +4,8 @@ using AvishagProject.Mock;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Repositories.Repositories;
 using AvishagProject.Repositories.Entities;
+using AvishagProject.common.DTOs;
+using AvishagProject.Services.Interfaces;
 
 namespace AvishagProject.WebAPI.Controllers
 {
@@ -11,35 +13,35 @@ namespace AvishagProject.WebAPI.Controllers
     [ApiController]
     public class PermissionController : ControllerBase
     {
-        private readonly IPermissionRepository _permissionRepository;
-        public PermissionController(IPermissionRepository _IpermissionRepository)
+        private readonly IPermissionService _permissionService;
+        public PermissionController(IPermissionService permissionService)
         {
-            _permissionRepository = _IpermissionRepository;   
+            _permissionService = permissionService;
         }
         [HttpGet]
-        public List<Permission> Get()
+        public List<PermissionDTO> Get()
         {
-            return _permissionRepository.GetAll();
+            return _permissionService.GetAll();
         }
         [HttpGet("{id}")]
-        public Permission GetById(int Id)
+        public PermissionDTO GetById(int id)
         {
-            return _permissionRepository.GetById(Id);
+            return _permissionService.GetById(id);
         }
         [HttpPost]
-        public void insert(int Id, string Name, string Description)
+        public async Task InsertAsync(int id, string name, string description)
         {
-            _permissionRepository.Add(Id, Name, Description);
+            await _permissionService.AddAsync(id, name, description);
         }
         [HttpPost]
-        public void Update(Permission Permission)
+        public async Task UpdateAsync(PermissionDTO permission)
         {
-            _permissionRepository.Update(Permission);
+            await _permissionService.UpdateAsync(permission);
         }
         [HttpDelete]
-        public void delete(int Id)
+        public async Task DeleteAsync(int id)
         {
-            _permissionRepository.Delete(Id);
+            await _permissionService.DeleteAsync(id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AvishagProject.common.DTOs;
+﻿using AutoMapper;
+using AvishagProject.common.DTOs;
 using AvishagProject.Repositories.Entities;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Services.Interfaces;
@@ -13,26 +14,28 @@ namespace AvishagProject.Services
     public class PermissionService : IPermissionService
     {
         private readonly IPermissionRepository _permisssionRepository;
+        private readonly IMapper _mapper;
+
         public PermissionService(IPermissionRepository permisssionRepository)
         {
             _permisssionRepository = permisssionRepository;
         }
         public List<PermissionDTO> GetAll()
         {
-            return _permisssionRepository.GetAll();
+            return _mapper.Map< List < PermissionDTO >>(_permisssionRepository.GetAll()) ;
         }
         public PermissionDTO GetById(int id)
         {
-            return _permisssionRepository.GetById(id);
+            return _mapper.Map<PermissionDTO>(_permisssionRepository.GetById(id));
         }
         public async Task<PermissionDTO> AddAsync(int id, string name, string description)
         {
-            return await _permisssionRepository.AddAsync(id, name, description);
+            return _mapper.Map<PermissionDTO>( await _permisssionRepository.AddAsync(id, name, description));
 
         }
         public async Task<PermissionDTO> UpdateAsync(PermissionDTO permission)
         {
-            return await _permisssionRepository.UpdateAsync(permission);
+            return _mapper.Map<PermissionDTO>(await _permisssionRepository.UpdateAsync(_mapper.Map<Permission>(permission)));
         }
         public async Task DeleteAsync(int id)
         {

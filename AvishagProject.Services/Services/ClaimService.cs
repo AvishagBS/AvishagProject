@@ -1,4 +1,5 @@
-﻿using AvishagProject.common.DTOs;
+﻿using AutoMapper;
+using AvishagProject.common.DTOs;
 using AvishagProject.Repositories.Entities;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Services.Interfaces;
@@ -13,13 +14,15 @@ namespace AvishagProject.Services
     public class ClaimService : IClaimService
     {
         private readonly IClaimRepository _claimRepository;
-        public ClaimService(IClaimRepository claimRepository)
+        private readonly IMapper _mapper;
+        public ClaimService(IClaimRepository claimRepository,IMapper mapper)
         {
             _claimRepository=claimRepository;
+            _mapper=mapper;
         }
         public List<ClaimDTO> GetAll()
         {
-            return  _claimRepository.GetAll();
+            return _mapper.Map<List<ClaimDTO>>(_claimRepository.GetAll());
         }
         public Claim GetById(int id)
         {
@@ -32,7 +35,7 @@ namespace AvishagProject.Services
         }
         public async Task<ClaimDTO> UpdateAsync(ClaimDTO claim)
         {
-           return await _claimRepository.UpdateAsync(claim);
+           return _mapper.Map<ClaimDTO>(await _claimRepository.UpdateAsync(_mapper.Map<Claim>(claim)));
         }
         public async Task DeleteAsync(int id)
         {

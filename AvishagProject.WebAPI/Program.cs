@@ -2,6 +2,7 @@ using AvishagProject.Mock;
 using AvishagProject.Repositories;
 using AvishagProject.Repositories.Interfaces;
 using AvishagProject.Repositories.Repositories;
+using AvishagProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IContext, MockContext>();
-builder.Services.AddRepositories();
+
+builder.Services.AddServices();
 
 var app = builder.Build();
 

@@ -9,8 +9,8 @@ namespace AvishagProject.Repositories.Interfaces
 {
     public interface IPermissionRepository
     {
-        List<Permission> GetAll();
-        Permission GetById(int id);
+        Task<List<Permission>> GetAll();
+        Task<Permission> GetById(int id);
         Task<Permission> AddAsync(int id, string name, string description);
         Task<Permission> UpdateAsync(Permission permission);
         Task DeleteAsync(int id);

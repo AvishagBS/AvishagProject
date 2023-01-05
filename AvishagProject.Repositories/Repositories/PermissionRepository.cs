@@ -1,5 +1,6 @@
 ﻿using AvishagProject.Repositories.Entities;
 using AvishagProject.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,13 @@ namespace AvishagProject.Repositories.Repositories
         {
             _context = _context;
         }
-        public List<Permission> GetAll()
+        public async Task<List<Permission>> GetAll()
         {
-            return _context.Permissions;
+            return await _context.Permissions.ToListAsync();
         }
-        public Permission GetById(int id)
+        public async Task<Permission> GetById(int id)
         {
-            return _context.Permissions.First(x => x.Id == id);
+            return await _context.Permissions.FindAsync(id);
         }
         public async Task< Permission> AddAsync(int id, string name, string description)
         {
@@ -33,7 +34,7 @@ namespace AvishagProject.Repositories.Repositories
         }
         public async Task< Permission> UpdateAsync(Permission permission)
         {
-            var p = GetById(permission.Id);
+            var p = await GetById(permission.Id);
             permission.Name = p.Name;
             permission.Description = p.Description;
             await _context.SaveChangesAsync();

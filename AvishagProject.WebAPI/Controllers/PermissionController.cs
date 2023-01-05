@@ -19,14 +19,14 @@ namespace AvishagProject.WebAPI.Controllers
             _permissionService = permissionService;
         }
         [HttpGet]
-        public List<PermissionDTO> Get()
+        public async Task<List<PermissionDTO>> Get()
         {
-            return _permissionService.GetAll();
+            return await _permissionService.GetAll();
         }
         [HttpGet("{id}")]
-        public PermissionDTO GetById(int id)
+        public async Task<PermissionDTO> GetById(int id)
         {
-            return _permissionService.GetById(id);
+            return await _permissionService.GetById(id);
         }
         [HttpPost]
         public async Task InsertAsync(int id, string name, string description)

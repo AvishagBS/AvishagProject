@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace AvishagProject.Repositories.Repositories
 {
@@ -16,13 +17,13 @@ namespace AvishagProject.Repositories.Repositories
         {
             _context = _context;
         }
-        public  List<Claim> GetAll()
+        public async Task<List<Claim>> GetAll()
         {
-            return _context.Claims;
+            return await _context.Claims.ToListAsync();
         }
-        public Claim GetById(int id)
+        public async Task<Claim> GetById(int id)
         {
-            return _context.Claims.First(x => x.Id == id);
+            return await _context.Claims.FindAsync(id);
         }
         public async Task< Claim> AddAsync(int id, int roleId, int permissionId, EPolicy policy)
         {
@@ -34,7 +35,7 @@ namespace AvishagProject.Repositories.Repositories
         }
         public async Task<Claim> UpdateAsync(Claim claim)
         {
-            var c = GetById(claim.Id);
+            var c = await GetById(claim.Id);
             claim.RoleId = c.RoleId;
             claim.PermissionId = c.PermissionId;
             await _context.SaveChangesAsync();

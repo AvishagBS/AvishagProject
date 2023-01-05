@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AvishagProject.Mock
 {
-    public class MockContext : IContext
+    public class MockContext //: IContext
     {
         public List<Claim> Claims { get; set; }
         public List<Role> Roles { get; set; }

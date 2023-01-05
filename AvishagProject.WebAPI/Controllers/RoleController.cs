@@ -20,14 +20,14 @@ namespace AvishagProject.WebAPI.Controllers
             _roleService = roleService;
         }
         [HttpGet]
-        public List<RoleDTO> Get()
+        public async Task<List<RoleDTO>> Get()
         {
-            return _roleService.GetAll();
+            return await _roleService.GetAll();
         }
         [HttpGet("{id}")]
-        public RoleDTO GetById(int id)
+        public async Task<RoleDTO> GetById(int id)
         {
-            return _roleService.GetById(id);
+            return await _roleService.GetById(id);
         }
         [HttpPost]
         public async Task InsertAsync(int id, string name, string description)

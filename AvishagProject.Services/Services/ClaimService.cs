@@ -20,17 +20,17 @@ namespace AvishagProject.Services
             _claimRepository=claimRepository;
             _mapper=mapper;
         }
-        public List<ClaimDTO> GetAll()
+        public async Task<List<ClaimDTO>> GetAll()
         {
-            return _mapper.Map<List<ClaimDTO>>(_claimRepository.GetAll());
+            return  _mapper.Map<List<ClaimDTO>>(_claimRepository.GetAll());
         }
-        public Claim GetById(int id)
+        public async Task<ClaimDTO> GetById(int id)
         {
-            return _claimRepository.GetById(id);
+            return _mapper.Map<ClaimDTO>(await _claimRepository.GetById(id));
         }
-        public async Task<ClaimDTO> AddAsync(int id, int roleId, int permissionId, EPolicy policy)
+        public async Task<ClaimDTO> AddAsync(int id, int roleId, int permissionId,AvishagProject.Repositories.Entities.EPolicy policy)
         {
-          return await _claimRepository.AddAsync(id, roleId, permissionId, policy);
+            return _mapper.Map<ClaimDTO>(await _claimRepository.AddAsync(id, roleId, permissionId, policy));
 
         }
         public async Task<ClaimDTO> UpdateAsync(ClaimDTO claim)

@@ -17,5 +17,6 @@ namespace AvishagProject.Services
             services.AddAutoMapper(typeof(MappingProfile));
 
             return services;
+        }
     }
 }

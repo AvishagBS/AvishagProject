@@ -9,8 +9,8 @@ namespace AvishagProject.Repositories.Interfaces
 {
     public interface IRoleRepository
     {
-        List<Role> GetAll();
-        Role GetById(int id);
+        Task<List<Role>> GetAll();
+        Task<Role> GetById(int id);
         Task<Role> AddAsync(int id, string name, string description);
         Task<Role> UpdateAsync(Role role);
         Task DeleteAsync(int id);

@@ -20,17 +20,17 @@ namespace AvishagProject.WebAPI.Controllers
             _claimService = claimService;
         }
         [HttpGet]
-        public List<ClaimDTO> Get()
+        public async Task<List<ClaimDTO>> Get()
         {
-            return _claimService.GetAll();
+            return await _claimService.GetAll();
         }
         [HttpGet("{id}")]
-        public ClaimDTO GetById(int id)
+        public async Task<ClaimDTO> GetById(int id)
         {
-            return _claimService.GetById(id);
+            return await _claimService.GetById(id);
         }
         [HttpPost]
-        public async Task InsertAsync(int id, int roleId, int permissionId, EPolicy policy)
+        public async Task InsertAsync(int id, int roleId, int permissionId, AvishagProject.Repositories.Entities.EPolicy policy)
         {
             await _claimService.AddAsync( id,  roleId,  permissionId,  policy);
         }

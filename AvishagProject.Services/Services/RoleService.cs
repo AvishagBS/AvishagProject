@@ -15,13 +15,13 @@ namespace AvishagProject.Services
             _roleRepository = roleRepository;
             _mapper = mapper;
         }
-        public List<RoleDTO> GetAll()
+        public async Task<List<RoleDTO>> GetAll()
         {
-            return _mapper.Map<List<RoleDTO>>(_roleRepository.GetAll());
+            return _mapper.Map<List<RoleDTO>>(await _roleRepository.GetAll());
         }
-        public RoleDTO GetById(int id)
+        public async Task<RoleDTO> GetById(int id)
         {
-            return _mapper.Map<RoleDTO>(_roleRepository.GetById(id));
+            return _mapper.Map<RoleDTO>(await _roleRepository.GetById(id));
         }
         public async Task<RoleDTO> AddAsync(int id, string name, string description)
         {

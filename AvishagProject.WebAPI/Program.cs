@@ -1,3 +1,4 @@
+using AvishagProject.Context;
 using AvishagProject.Mock;
 using AvishagProject.Repositories;
 using AvishagProject.Repositories.Interfaces;
@@ -13,7 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IContext, MockContext>();
+//builder.Services.AddSingleton<IContext, MockContext>();
+builder.Services.AddDbContext<IContext,DataContext>();
 
 builder.Services.AddServices();
 

@@ -20,13 +20,13 @@ namespace AvishagProject.Services
         {
             _permisssionRepository = permisssionRepository;
         }
-        public List<PermissionDTO> GetAll()
+        public async Task<List<PermissionDTO>> GetAll()
         {
-            return _mapper.Map< List < PermissionDTO >>(_permisssionRepository.GetAll()) ;
+            return _mapper.Map< List < PermissionDTO >>(await _permisssionRepository.GetAll()) ;
         }
-        public PermissionDTO GetById(int id)
+        public async Task<PermissionDTO> GetById(int id)
         {
-            return _mapper.Map<PermissionDTO>(_permisssionRepository.GetById(id));
+            return _mapper.Map<PermissionDTO>(await _permisssionRepository.GetById(id));
         }
         public async Task<PermissionDTO> AddAsync(int id, string name, string description)
         {

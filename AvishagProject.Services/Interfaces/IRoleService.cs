@@ -10,8 +10,8 @@ namespace AvishagProject.Services.Interfaces
 {
     public interface IRoleService
     {
-        List<RoleDTO> GetAll();
-        RoleDTO GetById(int id);
+        Task<List<RoleDTO>> GetAll();
+        Task<RoleDTO> GetById(int id);
         Task<RoleDTO> AddAsync(int id, string name, string description);
         Task<RoleDTO> UpdateAsync(RoleDTO role);
         Task DeleteAsync(int id);

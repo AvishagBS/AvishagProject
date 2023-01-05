@@ -10,8 +10,8 @@ namespace AvishagProject.Repositories.Interfaces
 {
     public interface IClaimRepository
     {
-        List<Claim> GetAll();
-        Claim GetById(int id);
+        Task<List<Claim>> GetAll();
+        Task<Claim> GetById(int id);
         Task<Claim> AddAsync(int id, int roleId, int permissionId, EPolicy policy);
         Task< Claim> UpdateAsync(Claim claim);
         Task DeleteAsync(int id);

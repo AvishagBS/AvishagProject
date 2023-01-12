@@ -15,19 +15,29 @@ namespace AvishagProject.WebAPI.Controllers
     {
 
         private readonly IRoleService _roleService;
-        public RoleController(IRoleService roleService)
+        private readonly ILogger<RoleController> _logger;
+        public RoleController(IRoleService roleService, ILogger<RoleController> logger)
         {
             _roleService = roleService;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<List<RoleDTO>> Get()
         {
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all Roles");
             return await _roleService.GetAll();
         }
         [HttpGet("{id}")]
-        public async Task<RoleDTO> GetById(int id)
+        public async Task<ActionResult<RoleDTO>> GetById(int id)
         {
-            return await _roleService.GetById(id);
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Roles STARTS");
+            var role= await _roleService.GetById(id);
+            if(role is null)
+            {
+                return NotFound();
+            }
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Roles END");
+            return role;
         }
         [HttpPost]
         public async Task InsertAsync(int id, string name, string description)

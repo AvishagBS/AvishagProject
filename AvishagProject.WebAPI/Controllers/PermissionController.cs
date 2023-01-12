@@ -14,19 +14,30 @@ namespace AvishagProject.WebAPI.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionService _permissionService;
-        public PermissionController(IPermissionService permissionService)
+        private readonly ILogger<RoleController> _logger;
+
+        public PermissionController(IPermissionService permissionService, ILogger<RoleController> logger)
         {
             _permissionService = permissionService;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<List<PermissionDTO>> Get()
         {
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all Permission");
             return await _permissionService.GetAll();
         }
         [HttpGet("{id}")]
-        public async Task<PermissionDTO> GetById(int id)
+        public async Task<ActionResult<PermissionDTO>> GetById(int id)
         {
-            return await _permissionService.GetById(id);
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Permission STARTS");
+            var permission = await _permissionService.GetById(id);
+            if (permission is null)
+            {
+                return NotFound();
+            }
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Permission END");
+            return permission;
         }
         [HttpPost]
         public async Task InsertAsync(int id, string name, string description)

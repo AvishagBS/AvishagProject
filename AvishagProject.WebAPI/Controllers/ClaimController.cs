@@ -15,19 +15,31 @@ namespace AvishagProject.WebAPI.Controllers
     {
 
         private readonly IClaimService _claimService;
-        public ClaimController(IClaimService claimService)
+        private readonly ILogger<RoleController> _logger;
+
+        public ClaimController(IClaimService claimService, ILogger<RoleController> logger)
         {
             _claimService = claimService;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<List<ClaimDTO>> Get()
         {
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all claims");
             return await _claimService.GetAll();
         }
         [HttpGet("{id}")]
-        public async Task<ClaimDTO> GetById(int id)
+        public async Task<ActionResult<ClaimDTO>> GetById(int id)
         {
-            return await _claimService.GetById(id);
+
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Claim STARTS");
+            var claim = await _claimService.GetById(id);
+            if (claim is null)
+            {
+                return NotFound();
+            }
+            _logger.LogInformation($"{HttpContext.Items["RequestSequence"]}Get all by id Claim END");
+            return claim;
         }
         [HttpPost]
         public async Task InsertAsync(int id, int roleId, int permissionId, AvishagProject.Repositories.Entities.EPolicy policy)
